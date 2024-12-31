@@ -1,5 +1,20 @@
 import { useState } from 'react'
 
+const Statistics = ({ clicks }) => {
+  const counterClicks = clicks.good + clicks.neutral + clicks.bad;
+  const average = (clicks.good - clicks.bad) / counterClicks;
+  return (
+    <div>
+      <h1>statistics</h1>
+      <p>Good {clicks.good}</p>
+      <p>Neutral {clicks.neutral}</p>
+      <p>Bad {clicks.bad}</p>
+      <p>All {counterClicks}</p>
+      <p>Average {average}</p>
+      <p>Positive {(clicks.good / counterClicks)*100}%</p>
+    </div>
+  )
+}
 
 const App = () => {
   const [clicks, setClicks] = useState({
@@ -32,23 +47,13 @@ const App = () => {
     setClicks(newClick)
   }
 
-  const counterClicks = clicks.good + clicks.neutral + clicks.bad;
-
-  const average = (clicks.good - clicks.bad) / counterClicks;
-
   return (
     <div>
       <h1>Give feedback</h1>
       <button onClick={handleGoodClick}>Good</button>
       <button onClick={handleNeutralClick}>Neutral</button>
       <button onClick={handleBadClick}>Bad</button>
-      <h1>statistics</h1>
-      <p>Good {clicks.good}</p>
-      <p>Neutral {clicks.neutral}</p>
-      <p>Bad {clicks.bad}</p>
-      <p>All {counterClicks}</p>
-      <p>Average {average}</p>
-      <p>Positive {(clicks.good / counterClicks)*100}%</p>
+      <Statistics clicks={clicks} />
     </div>
   )
 }
