@@ -1,11 +1,18 @@
 import { useState } from 'react'
 
+const NoFeedback = () => {
+  return (
+    <div>
+      <p>No feedback given</p>
+    </div>
+  )
+}
+
 const Statistics = ({ clicks }) => {
   const counterClicks = clicks.good + clicks.neutral + clicks.bad;
   const average = (clicks.good - clicks.bad) / counterClicks;
   return (
     <div>
-      <h1>statistics</h1>
       <p>Good {clicks.good}</p>
       <p>Neutral {clicks.neutral}</p>
       <p>Bad {clicks.bad}</p>
@@ -22,7 +29,6 @@ const App = () => {
     neutral: 0,
     bad: 0
   })
-
   const handleGoodClick = () => {
     const newClick = {
       ...clicks,
@@ -30,7 +36,7 @@ const App = () => {
     }
     setClicks(newClick)
   }
-
+  
   const handleNeutralClick = () => {
     const newClick = {
       ...clicks,
@@ -38,7 +44,7 @@ const App = () => {
     }
     setClicks(newClick)
   }
-
+  
   const handleBadClick = () => {
     const newClick = {
       ...clicks,
@@ -46,14 +52,18 @@ const App = () => {
     }
     setClicks(newClick)
   }
-
+  
+  const counterClicks = clicks.good + clicks.neutral + clicks.bad;
+  
   return (
     <div>
       <h1>Give feedback</h1>
       <button onClick={handleGoodClick}>Good</button>
       <button onClick={handleNeutralClick}>Neutral</button>
       <button onClick={handleBadClick}>Bad</button>
-      <Statistics clicks={clicks} />
+      <h1>statistics</h1>
+      <h1></h1>
+      {counterClicks === 0 ? <NoFeedback /> : <Statistics clicks={clicks} />}
     </div>
   )
 }
