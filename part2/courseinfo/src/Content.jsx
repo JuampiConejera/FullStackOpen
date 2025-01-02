@@ -1,7 +1,7 @@
 const Content = ( {parts} ) => {
     return (
         <div>
-            <p>{parts.name} {parts.exercises}</p>
+            <p>{parts.name}: {parts.exercises}</p>
         </div>
     )
 }
