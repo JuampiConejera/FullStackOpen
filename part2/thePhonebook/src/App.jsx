@@ -1,5 +1,7 @@
 import { useState } from 'react'
-import { List } from './List'
+import { Filter } from './components/Filter'
+import { PersonForm } from './components/PersonForm'
+import { Persons } from './components/Persons'
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -12,61 +14,15 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
 
-
-  const addPersons = (e) => {
-    e.preventDefault()
-    if(persons.some(person => person.name === newName)) alert(`${newName} is already added to phonebook`)
-    else {
-      const personObject = {
-        name: newName,
-        number: newNumber
-      }
-      setPersons(persons.concat(personObject))
-      setNewName('')
-      setNewNumber('')
-    }
-  }
-
-  const handleNameChange = (e) => {
-    setNewName(e.target.value)
-  }
-  const handleNumberChange = (e) => {
-    setNewNumber(e.target.value)
-  }
-
-  const handleFilterChange = (e) => {
-    console.log(e.target.value)
-    setFilter(e.target.value)
-  } //actualiza por cada cambio en el input
-
-  const personsToShow = persons.filter(person => 
-    person.name.toLowerCase().includes(filter.toLowerCase())
-  ) //formatea los nombres a minusculas y compara si {filter} esta dentro del nombre
-
   return (
     <div>
-      <h2>Phonebook</h2>
-      <div>
-        filter shown with <input value={filter} onChange={handleFilterChange}/>
-      </div>
+      <h2>PhoneBook</h2>
+      <Filter filter={filter} setFilter={setFilter}/>
       <h3>Add a new</h3>
-      <form onSubmit={addPersons}>
-        <div>
-          name: <input value={newName} onChange={handleNameChange}/>
-        </div>
-        <div>
-          number: <input value={newNumber} onChange={handleNumberChange}/>
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
-      <h2>Numbers</h2>
-      {personsToShow.map(persons =>
-        <List key={persons.name} person={persons} />
-      )}
+      <PersonForm newName={newName} setNewName={setNewName} newNumber={newNumber} setNewNumber={setNewNumber} persons={persons} setPersons={setPersons} />
+      <h3>Numbers</h3>
+      <Persons persons={persons} filter={filter} />
     </div>
   )
 }
-
 export default App
