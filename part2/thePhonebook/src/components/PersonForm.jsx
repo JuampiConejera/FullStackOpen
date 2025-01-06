@@ -1,3 +1,5 @@
+import axios from "axios"
+
 export const PersonForm = ( {newName, setNewName, newNumber, setNewNumber, persons, setPersons}) => {
     const addPersons = (e) => {
         e.preventDefault()
@@ -7,9 +9,11 @@ export const PersonForm = ( {newName, setNewName, newNumber, setNewNumber, perso
             name: newName,
             number: newNumber
           }
-          setPersons(persons.concat(personObject))
-          setNewName('')
-          setNewNumber('')
+          axios
+            .post('http://localhost:3001/persons', personObject)
+            .then(response => {
+              setPersons(persons.concat(response.data))
+            })
         }
     }
 
@@ -20,7 +24,7 @@ export const PersonForm = ( {newName, setNewName, newNumber, setNewNumber, perso
     const handleNumberChange = (e) => {
         setNewNumber(e.target.value)
     }
-    
+
     return (
         <form onSubmit={addPersons}>
             <div>
