@@ -1,5 +1,3 @@
-import axios from "axios"
-
 export const PersonForm = ( {newName, setNewName, newNumber, setNewNumber, persons, setPersons}) => {
     const addPersons = (e) => {
         e.preventDefault()
@@ -9,8 +7,8 @@ export const PersonForm = ( {newName, setNewName, newNumber, setNewNumber, perso
             name: newName,
             number: newNumber
           }
-          axios
-            .post('http://localhost:3001/persons', personObject)
+          listNumbers
+            .create(personObject)
             .then(response => {
               setPersons(persons.concat(response.data))
             })

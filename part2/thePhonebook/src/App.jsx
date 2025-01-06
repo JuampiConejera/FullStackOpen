@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
 import { Filter } from './components/Filter'
 import { PersonForm } from './components/PersonForm'
 import { Persons } from './components/Persons'
+
+import { listNumbers } from './services/ListNumbers'
 
 const App = () => {
   const [newName, setNewName] = useState('')
@@ -11,15 +12,12 @@ const App = () => {
   const [persons, setPersons] = useState([])
 
   useEffect(() => {
-    console.log('Effect')
-    axios
-      .get('http://localhost:3001/persons')
+    listNumbers
+      .getAll()
       .then(response => {
-        console.log('promesa cumplida')
         setPersons(response.data)
       })
   }, [])
-  console.log('render', persons.length, 'persons')
 
   return (
     <div>
