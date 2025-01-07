@@ -1,6 +1,6 @@
 import listService from '../services/ListNumbers'
 
-export const PersonForm = ( {newName, setNewName, newNumber, setNewNumber, persons, setPersons}) => {
+export const PersonForm = ( {newName, setNewName, newNumber, setNewNumber, persons, setPersons, setMessage}) => {
     
     const toggleNumberOf = (person, newNumber) =>{
         const pers = persons.find(n => n.id === person.id)
@@ -10,6 +10,10 @@ export const PersonForm = ( {newName, setNewName, newNumber, setNewNumber, perso
             .update(person.id, changedNumber)
             .then(returnedList => {
                 setPersons(persons.map(pers => pers.id !== person.id ? pers : returnedList))
+                setMessage(`Changed ${person.name}`)
+                setTimeout(() => {
+                    setMessage(null)
+                }, 3000);
             })
 
     }
@@ -29,6 +33,10 @@ export const PersonForm = ( {newName, setNewName, newNumber, setNewNumber, perso
             .create(personObject)
             .then(response => {
               setPersons(persons.concat(response.data))
+              setMessage( `Added ${newName}`)
+              setTimeout(() => {
+                setMessage(null)
+              }, 3000);
             })
         }
     }

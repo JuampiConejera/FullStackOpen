@@ -6,7 +6,7 @@ export const Filter = ( {filter, setFilter}) => {
 
     return (
         <div>
-            <input value={filter} onChange={handleFilterChange} />
+            Filter shown with<input value={filter} onChange={handleFilterChange} />
         </div>
     )
 }
