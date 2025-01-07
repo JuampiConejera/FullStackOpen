@@ -1,3 +1,5 @@
+import listService from '../services/ListNumbers'
+
 export const PersonForm = ( {newName, setNewName, newNumber, setNewNumber, persons, setPersons}) => {
     const addPersons = (e) => {
         e.preventDefault()
@@ -7,7 +9,7 @@ export const PersonForm = ( {newName, setNewName, newNumber, setNewNumber, perso
             name: newName,
             number: newNumber
           }
-          listNumbers
+          listService
             .create(personObject)
             .then(response => {
               setPersons(persons.concat(response.data))

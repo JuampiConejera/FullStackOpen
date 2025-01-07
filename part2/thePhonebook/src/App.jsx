@@ -3,7 +3,7 @@ import { Filter } from './components/Filter'
 import { PersonForm } from './components/PersonForm'
 import { Persons } from './components/Persons'
 
-import { listNumbers } from './services/ListNumbers'
+import listService from './services/ListNumbers'
 
 const App = () => {
   const [newName, setNewName] = useState('')
@@ -12,7 +12,7 @@ const App = () => {
   const [persons, setPersons] = useState([])
 
   useEffect(() => {
-    listNumbers
+    listService
       .getAll()
       .then(response => {
         setPersons(response.data)
