@@ -19,6 +19,16 @@ const App = () => {
       })
   }, [])
 
+  const handleDelete = (person) => {
+    if (window.confirm(`Delete ${person.name}?`)) {
+        listService
+            .remove(person.id)
+            .then(() => {
+                setPersons(persons.filter(pers => pers.id !== person.id))
+            })
+    }
+}
+
   return (
     <div>
       <h2>PhoneBook</h2>
@@ -26,7 +36,7 @@ const App = () => {
       <h3>Add a new</h3>
       <PersonForm newName={newName} setNewName={setNewName} newNumber={newNumber} setNewNumber={setNewNumber} persons={persons} setPersons={setPersons} />
       <h3>Numbers</h3>
-      <Persons persons={persons} filter={filter} />
+      <Persons persons={persons} filter={filter} handleDelete={handleDelete} />
     </div>
   )
 }
