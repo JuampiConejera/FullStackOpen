@@ -11,7 +11,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
   const [persons, setPersons] = useState([])
-  const [message, setMessage] = useState(null)
+  const [message, setMessage] = useState({ text: null, type: ''})
 
   useEffect(() => {
     listService
@@ -27,6 +27,18 @@ const App = () => {
             .remove(person.id)
             .then(() => {
                 setPersons(persons.filter(pers => pers.id !== person.id))
+                setMessage({ text: `Deleted ${person.name}`, type: 'success'})
+                setTimeout(() => {
+                  setMessage({ text: null, type: ''})
+                }, 3000);
+            })
+            .catch(() => {
+              setMessage({ text: `Failed to delete ${person.name}`, type: 'error' })
+              setTimeout(() => {
+                setMessage(() => {
+                  setMessage({ text: null, type: ''})
+                })
+              }, 3000);
             })
     }
 }

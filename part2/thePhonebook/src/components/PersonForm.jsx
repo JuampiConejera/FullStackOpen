@@ -10,13 +10,20 @@ export const PersonForm = ( {newName, setNewName, newNumber, setNewNumber, perso
             .update(person.id, changedNumber)
             .then(returnedList => {
                 setPersons(persons.map(pers => pers.id !== person.id ? pers : returnedList))
-                setMessage(`Changed ${person.name}`)
-                setTimeout(() => {
-                    setMessage(null)
+                setMessage({ text: `Changed ${newName}`, type: 'success'})
+                 setTimeout(() => {
+                 setMessage({ text: null, type: ''})
                 }, 3000);
             })
-
-    }
+            .catch(() => {
+              setMessage({ text: `Failed to change ${newName}`, type: 'error' })
+              setTimeout(() => {
+                setMessage(() => {
+                  setMessage({ text: null, type: ''})
+                })
+              }, 3000);
+            })
+            }
     
     const addPersons = (e) => {
         e.preventDefault()
@@ -33,13 +40,21 @@ export const PersonForm = ( {newName, setNewName, newNumber, setNewNumber, perso
             .create(personObject)
             .then(response => {
               setPersons(persons.concat(response.data))
-              setMessage( `Added ${newName}`)
+              setMessage({ text: `Added ${newName}`, type: 'success'})
+                 setTimeout(() => {
+                 setMessage({ text: null, type: ''})
+                }, 3000);
+            })
+            .catch(() => {
+              setMessage({ text: `Failed to add ${newName}`, type: 'error' })
               setTimeout(() => {
-                setMessage(null)
+                setMessage(() => {
+                  setMessage({ text: null, type: ''})
+                })
               }, 3000);
             })
+            }
         }
-    }
 
     const handleNameChange = (e) => {
         setNewName(e.target.value)

@@ -1,5 +1,11 @@
-.messageChange {
+.success {
     background-color: rgb(189, 186, 186);
     color: rgb(8, 219, 8);
     border: 3px solid rgb(8, 219, 8);
+}
+
+.error {
+    background-color: rgb(189, 186, 186);
+    color: red;
+    border: 3px solid rgb(189, 186, 186);
 }
