@@ -19,6 +19,13 @@ const App = () => {
       })
   }, [])
 
+  const handleDelete = (id) => {
+    listService
+      .deletePerson(id)
+      .then(() => {
+      })
+  }
+
   return (
     <div>
       <h2>PhoneBook</h2>
@@ -26,7 +33,7 @@ const App = () => {
       <h3>Add a new</h3>
       <PersonForm newName={newName} setNewName={setNewName} newNumber={newNumber} setNewNumber={setNewNumber} persons={persons} setPersons={setPersons} />
       <h3>Numbers</h3>
-      <Persons persons={persons} filter={filter} />
+      <Persons persons={persons} filter={filter} handleDelete={handleDelete} />
     </div>
   )
 }
