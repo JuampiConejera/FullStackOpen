@@ -4,18 +4,22 @@ import listService from './services/list'
 
 import { Filter } from './components/Filter'
 import { CountriesList } from './components/Countries'
+import { Country } from './components/Country'
 
 const App = () => {
   const [filter, setFilter] = useState('')
-  const [countries, setCountries] = useState(null)
+  const [countries, setCountries] = useState([])
   
+  const countriesShow = countries.filter(countries =>
+    countries.name.common.toLowerCase().includes(filter.toLowerCase()));
+
   useEffect(() => {
     listService
       .getAll()
       .then(data => {
         setCountries(data)
       })
-  },  )
+  }, [] )
 
   return (
     <div>
@@ -25,7 +29,9 @@ const App = () => {
           </div>
         ))} */}
         <Filter filter={filter} setFilter={setFilter} />
-        <CountriesList filters={filter} countries={countries} />
+        {countriesShow.length !== 1 
+          ? <CountriesList filters={filter} countries={countries} />
+          : <Country country={countriesShow[0]} />}
     </div>
   )
 }
