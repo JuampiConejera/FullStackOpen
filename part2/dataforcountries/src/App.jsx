@@ -7,14 +7,16 @@ import { CountriesList } from './components/Countries'
 
 const App = () => {
   const [filter, setFilter] = useState('')
-  const [countries, setCountries] = useState([])
+  const [countries, setCountries] = useState(null)
+  
   useEffect(() => {
     listService
       .getAll()
       .then(data => {
         setCountries(data)
       })
-  }, [])
+  },  )
+
   return (
     <div>
         {/* {countries.map(country => (
@@ -23,7 +25,7 @@ const App = () => {
           </div>
         ))} */}
         <Filter filter={filter} setFilter={setFilter} />
-        <CountriesList filter={filter} countries={countries} />
+        <CountriesList filters={filter} countries={countries} />
     </div>
   )
 }
