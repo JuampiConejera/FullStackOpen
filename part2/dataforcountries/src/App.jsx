@@ -10,8 +10,14 @@ const App = () => {
   const [filter, setFilter] = useState('')
   const [countries, setCountries] = useState([])
   
-  const countriesShow = countries.filter(countries =>
+  const countriesToShow = countries.filter(countries =>
     countries.name.common.toLowerCase().includes(filter.toLowerCase()));
+
+    const handleClick = (e) => {
+      e.preventDefault()
+      console.log(e.target.value)
+      setFilter(e.target.name)
+    }
 
   useEffect(() => {
     listService
@@ -29,9 +35,9 @@ const App = () => {
           </div>
         ))} */}
         <Filter filter={filter} setFilter={setFilter} />
-        {countriesShow.length !== 1 
-          ? <CountriesList filters={filter} countries={countries} />
-          : <Country country={countriesShow[0]} />}
+        {countriesToShow.length !== 1 
+          ? <CountriesList setFilter={setFilter} filters={filter} countries={countries} handleClick={handleClick} />
+          : <Country country={countriesToShow[0]} />}
     </div>
   )
 }
